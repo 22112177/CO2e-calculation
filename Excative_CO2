@@ -124,19 +124,6 @@ parfor i =1:n
         *substitution_factor(substitution_factor_r,1) ...
         *plastic_cr_r;%单位 吨CO2
 
-    waste_fuel_MJ = 0;
-    for j = 2:4
-        waste_fuel_MJ = waste_fuel_MJ + waste_content_wet(j) ...
-            *extraction_efficiency(extraction_efficiency_r,j) ...
-            *waste_fuel_e(j);%MJ百分比,单位MJ/kg
-    end
-    CR_electricity = waste_weight * waste_fuel_MJ * 1000 * w2e_r ...
-        / electricity_e * electricity_cr;%单位kgCO2
-
-    if w2e_r == 2
-        heat_r = 1;
-    elseif w2e_r == 3
-        heat_r = 1;
     else 
         heat_r = datasample([1,2],1);
     end
