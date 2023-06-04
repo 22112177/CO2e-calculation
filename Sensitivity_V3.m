@@ -87,22 +87,22 @@ for i =1:n
 
 
     if s1 == 1
-        transport_c_r = transport_c(3);
         t=1;
+        transport_c_r = transport_c(t);
         distance_Fe_r = distance_Fe(t);
         distance_plastic_r = distance_plastic(t);
         distance_incinerator_r = distance_incinerator(t);
         distance_coarse_soil_r = distance_coarse_soil(t);
     elseif s1 ==2
-        transport_c_r = transport_c(2);
         t=2;
+        transport_c_r = transport_c(t);
         distance_Fe_r = distance_Fe(t);
         distance_plastic_r = distance_plastic(t);
         distance_incinerator_r = distance_incinerator(t);
         distance_coarse_soil_r = distance_coarse_soil(t);
     else
-        transport_c_r = transport_c(1);
         t=3;
+        transport_c_r = transport_c(t);
         distance_Fe_r = distance_Fe(t);
         distance_plastic_r = distance_plastic(t);
         distance_incinerator_r = distance_incinerator(t);
