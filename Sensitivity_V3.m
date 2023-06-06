@@ -1,4 +1,4 @@
-clc;clear
+clear
 tic
 %搭建参数库
 
@@ -37,7 +37,7 @@ screen_v = 10;
 extraction_efficiency = [[0.75,0.9,0.9,0.9,0.9];[0.75,0.825,0.85,0.875,0.8];[0.75,0.75,0.8,0.85,0.7]];%中间的是我杜撰的
 
 %燃烧
-ef_CH4 = [0.2,6];%焚烧CH4排放因子,kg/t 6,60,188,237
+ef_CH4 = [0.2,3,6];%焚烧CH4排放因子,kg/t [0.2,6,60,188,237]
 ef_N2O = 170;%焚烧N2O排放因子,g/t 170
 
 %运输
@@ -58,13 +58,13 @@ electricity_cr = 0.58955;%一度电0.58955kgCO2e/kWh
 heat_cr = [0.147,0.11,0.06];%[0.147,0.073,0.005][0.06,0.11];%kgCO2e/MJ
 
 %能量转化效率
-w2e = [0.15,0.3,0.4];%发电能量转化效率
+w2e = [0.15,0.3,0.4];%发电能量转化效率[0.15,0.3,0.4]
 heat = [0.38,0.65];%热利用能量转化效率
 
 
 %计算
 
-n=10^5;%运行次数
+n=2000;%运行次数
 f=zeros(n,5); %运输、能量利用效率、原材料替代、高效节能筛分
 
 
@@ -87,22 +87,22 @@ for i =1:n
 
 
     if s1 == 1
+        transport_c_r = transport_c(3);
         t=1;
-        transport_c_r = transport_c(t);
         distance_Fe_r = distance_Fe(t);
         distance_plastic_r = distance_plastic(t);
         distance_incinerator_r = distance_incinerator(t);
         distance_coarse_soil_r = distance_coarse_soil(t);
     elseif s1 ==2
+        transport_c_r = transport_c(2);
         t=2;
-        transport_c_r = transport_c(t);
         distance_Fe_r = distance_Fe(t);
         distance_plastic_r = distance_plastic(t);
         distance_incinerator_r = distance_incinerator(t);
         distance_coarse_soil_r = distance_coarse_soil(t);
     else
+        transport_c_r = transport_c(1);
         t=3;
-        transport_c_r = transport_c(t);
         distance_Fe_r = distance_Fe(t);
         distance_plastic_r = distance_plastic(t);
         distance_incinerator_r = distance_incinerator(t);
@@ -111,7 +111,7 @@ for i =1:n
 
     if s2 == 1 %40%
         w2e_r = datasample(w2e,1);
-        heat_r = 0.41 - w2e_r;
+        heat_r = 0.4 - w2e_r;
     elseif s2 == 2 %60%
         w2e_r = datasample(w2e,1);
         heat_r = 0.6 - w2e_r;
@@ -238,9 +238,9 @@ for i =1:n
         - (CR_Fe + (CR_electricity + CR_heat + CR_soil)*0.001);
     f(i,1) = F;
 
-   if mod(i,1000)==0
-        disp(i/n);
-    end
+%    if mod(i,1000)==0
+%         disp(i/n);
+%     end
 end
 
 %单位换算成万吨
