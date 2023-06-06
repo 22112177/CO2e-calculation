@@ -69,9 +69,9 @@ f=zeros(n,4); %运输、能量利用效率、原材料替代、高效节能筛�
 
 for i =1:n
 
-    S1=[1,2,3];
-    S2=[1,2,3];
-    S3=[1,2,3];
+    S1=[1,2,3,4,5,6,7,8,9,10];
+    S2=[1,2,3,4,5,6,7,8,9,10];
+    S3=[1,2,3,4,5,6,7,8,9,10];
 
     s1=datasample(S1,1);
     s2=datasample(S2,1);
@@ -82,39 +82,20 @@ for i =1:n
     f(i,4) = s3;
 
 
-
-    w2e_r = w2e(s3)
-
-    if s1 == 1 %40%
-        heat_r = 0.4 - w2e_r;
-    elseif s1 == 2 %60%
-        heat_r = 0.6 - w2e_r;
-    else %80%
-        heat_r = 0.8 - w2e_r;
-    end
-
-    if s2 == 1
-        t=3;
-        Fe_cr_r = Fe_cr(t);
-        soil_cr_r = soil_cr(t);
-        heat_cr_r = heat_cr(t);
-        substitution_factor_Fe_r = substitution_factor_Fe(t);
-    elseif s2 == 2
-        t=2;
-        Fe_cr_r = Fe_cr(t);
-        soil_cr_r = soil_cr(t);
-        heat_cr_r = heat_cr(t);
-        substitution_factor_Fe_r = substitution_factor_Fe(t);
-    else
-        t=1;
-        Fe_cr_r = Fe_cr(t);
-        soil_cr_r = soil_cr(t);
-        heat_cr_r = heat_cr(t);
-        substitution_factor_Fe_r = substitution_factor_Fe(t);
-    end
+    %s3
+    w2e_r = (w2e(3)-w2e(1))*s3/10+w2e(1)
 
 
-    
+    %s1
+    heat_r = (0.4+(0.8-0.4)*s1/10) - w2e_r
+
+    %s2
+        Fe_cr_r = Fe_cr(3)+(Fe_cr(1)-Fe_cr(3))*s2/10;
+        soil_cr_r = soil_cr(3)+(soil_cr(1)-soil_cr(3))*s2/10;
+        heat_cr_r = heat_cr(3)+(heat_cr(1)-heat_cr(3))*s2/10;
+        substitution_factor_Fe_r = substitution_factor_Fe(3)+ ...
+        (substitution_factor_Fe(t1)-substitution_factor_Fe(3))*s2/10;
+
 
     excavate_r = datasample(excavate,1);
 %     screen_r = datasample(screen,1);
