@@ -63,9 +63,8 @@ heat = [0.38,0.65];%热利用能量转化效率
 
 
 %计算
-
 n=2000;%运行次数
-f=zeros(n,5); %运输、能量利用效率、原材料替代、高效节能筛分
+f=zeros(n,4); %运输、能量利用效率、原材料替代、高效节能筛分
 
 
 for i =1:n
@@ -73,60 +72,34 @@ for i =1:n
     S1=[1,2,3];
     S2=[1,2,3];
     S3=[1,2,3];
-    S4=[1,2,3];
 
     s1=datasample(S1,1);
     s2=datasample(S2,1);
     s3=datasample(S3,1);
-    s4=datasample(S4,1);
 
     f(i,2) = s1; 
     f(i,3) = s2;
     f(i,4) = s3;
-    f(i,5) = s4;
 
 
-    if s1 == 1
-        transport_c_r = transport_c(3);
-        t=1;
-        distance_Fe_r = distance_Fe(t);
-        distance_plastic_r = distance_plastic(t);
-        distance_incinerator_r = distance_incinerator(t);
-        distance_coarse_soil_r = distance_coarse_soil(t);
-    elseif s1 ==2
-        transport_c_r = transport_c(2);
-        t=2;
-        distance_Fe_r = distance_Fe(t);
-        distance_plastic_r = distance_plastic(t);
-        distance_incinerator_r = distance_incinerator(t);
-        distance_coarse_soil_r = distance_coarse_soil(t);
-    else
-        transport_c_r = transport_c(1);
-        t=3;
-        distance_Fe_r = distance_Fe(t);
-        distance_plastic_r = distance_plastic(t);
-        distance_incinerator_r = distance_incinerator(t);
-        distance_coarse_soil_r = distance_coarse_soil(t);
-    end
 
-    if s2 == 1 %40%
-        w2e_r = datasample(w2e,1);
+    w2e_r = w2e(s3)
+
+    if s1 == 1 %40%
         heat_r = 0.4 - w2e_r;
-    elseif s2 == 2 %60%
-        w2e_r = datasample(w2e,1);
+    elseif s1 == 2 %60%
         heat_r = 0.6 - w2e_r;
     else %80%
-        w2e_r = datasample(w2e,1);
         heat_r = 0.8 - w2e_r;
     end
 
-    if s3 == 1
+    if s2 == 1
         t=3;
         Fe_cr_r = Fe_cr(t);
         soil_cr_r = soil_cr(t);
         heat_cr_r = heat_cr(t);
         substitution_factor_Fe_r = substitution_factor_Fe(t);
-    elseif s3 == 2
+    elseif s2 == 2
         t=2;
         Fe_cr_r = Fe_cr(t);
         soil_cr_r = soil_cr(t);
@@ -140,16 +113,7 @@ for i =1:n
         substitution_factor_Fe_r = substitution_factor_Fe(t);
     end
 
-    if s4 == 1
-        extraction_efficiency_r = 3;
-        screen_r = 3;
-    elseif s4 == 2
-        extraction_efficiency_r = 2;
-        screen_r = 2;
-    else
-        extraction_efficiency_r = 1;
-        screen_r = 1;
-    end
+
     
 
     excavate_r = datasample(excavate,1);
