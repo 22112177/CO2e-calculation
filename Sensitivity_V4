@@ -94,16 +94,17 @@ for i =1:n
         soil_cr_r = soil_cr(3)+(soil_cr(1)-soil_cr(3))*s2/10;
         heat_cr_r = heat_cr(3)+(heat_cr(1)-heat_cr(3))*s2/10;
         substitution_factor_Fe_r = substitution_factor_Fe(3)+ ...
-        (substitution_factor_Fe(t1)-substitution_factor_Fe(3))*s2/10;
+        (substitution_factor_Fe(1)-substitution_factor_Fe(3))*s2/10;
 
 
     excavate_r = datasample(excavate,1);
-%     screen_r = datasample(screen,1);
-%     transport_c_r = datasample(transport_c,1);
-%     distance_Fe_r = datasample(distance_Fe,1);
-%     distance_plastic_r = datasample(distance_plastic,1);
-%     distance_incinerator_r = datasample(distance_incinerator,1);
-%     distance_coarse_soil_r = datasample(distance_coarse_soil,1);
+    screen_r = datasample(screen,1);
+    transport_c_r = datasample(transport_c,1);
+    distance_Fe_r = datasample(distance_Fe,1);
+    distance_plastic_r = datasample(distance_plastic,1);
+    distance_incinerator_r = datasample(distance_incinerator,1);
+    distance_coarse_soil_r = datasample(distance_coarse_soil,1);
+    extraction_efficiency_r = datasample([1,2],1); %该循环的提取效率选择
     C_content_r = datasample([1,2],1);%各物质碳含量
 %     Fe_cr_r = datasample(Fe_cr,1);
 %     soil_cr_r = datasample(soil_cr,1);
