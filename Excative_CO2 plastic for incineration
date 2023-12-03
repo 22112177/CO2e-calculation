@@ -68,7 +68,7 @@ n=10^5;%运行次数
 f=zeros(n,1);
 
 
-for i =1:n
+parfor i =1:n
 
     excacate_r = datasample(excavate,1);
     screen_r = datasample(screen,1);
@@ -160,7 +160,7 @@ for i =1:n
     CR_soil = waste_weight * waste_content_wet(6) * (1-waste_content_water(6)) ...
         * soil_cr_r;%单位kgCO2
 
-    F= + CE_waste_fuel  ...
+    F= CE_excavate*0.001 + CE_screen * 0.001 + CE_waste_fuel  ...
         + (CE_T_Fe +  CE_T_incinerator + CE_T_soil)*0.001 ...
         - (CR_Fe + (CR_electricity + CR_heat + CR_soil)*0.001);
     f(i) = F;
@@ -172,8 +172,7 @@ end
 
 %单位换算成万吨
 for i = 1:n
-    f(i)=f(i)/10000;
-    f(i)=f(i)/2051*1000;
+    f(i)=f(i)*1000/1388/10000;
 end
 
 %将结果进行升序
