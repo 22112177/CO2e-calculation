@@ -68,7 +68,7 @@ n=10^5;%运行次数
 f=zeros(n,1);
 
 
-parfor i =1:n
+for i =1:n %可以改成parfor
 
     excacate_r = datasample(excavate,1);
     screen_r = datasample(screen,1);
