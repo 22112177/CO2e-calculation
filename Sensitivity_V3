@@ -174,7 +174,7 @@ for i =1:n
 
     CE_excavate = waste_weight * excavate_r * disel_c;%挖掘碳排放kgCO2e
 
-    CE_screen = waste_weight * screen_r * electricity_cr;%筛分用电碳排放kgCO2e
+    CE_screen = waste_weight * screen(screen_r) * electricity_cr;%筛分用电碳排放kgCO2e
 
     waste_fuel_C = 0;%燃烧碳排放，轻质物干基*提取效率*含碳率
     for j = 1:4
